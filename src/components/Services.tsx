@@ -63,12 +63,18 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service) => (
             <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
-              <div className="h-48 overflow-hidden">
-                <img 
-                  src={service.image} 
-                  alt={service.title} 
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                />
+              <div className="h-48 overflow-hidden bg-gray-100 flex items-center justify-center">
+                {service.image ? (
+                  <img 
+                    src={service.image} 
+                    alt={service.title} 
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                  />
+                ) : (
+                  <div className="text-gray-300">
+                    {iconMap[service.icon] || <HelpCircle className="w-16 h-16" />}
+                  </div>
+                )}
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="mb-4">

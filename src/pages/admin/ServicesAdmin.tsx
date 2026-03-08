@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { Trash2, Edit, Plus, X, Save, Sparkles } from 'lucide-react';
+import { Trash2, Edit, Plus, X, Save, Sparkles, Image as ImageIcon } from 'lucide-react';
 import ImageUpload from '../../components/ImageUpload';
 import { GoogleGenAI } from "@google/genai";
 
@@ -133,8 +133,12 @@ export default function ServicesAdmin() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((service) => (
           <div key={service.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="h-40 overflow-hidden">
-              <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+            <div className="h-40 overflow-hidden bg-gray-100 flex items-center justify-center">
+              {service.image ? (
+                <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+              ) : (
+                <ImageIcon className="text-gray-400" size={32} />
+              )}
             </div>
             <div className="p-4">
               <h3 className="font-bold text-lg mb-2">{service.title}</h3>

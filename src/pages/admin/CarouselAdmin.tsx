@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { Trash2, Edit, Plus, X, Save } from 'lucide-react';
+import { Trash2, Edit, Plus, X, Save, Image as ImageIcon } from 'lucide-react';
 import ImageUpload from '../../components/ImageUpload';
 
 export default function CarouselAdmin() {
@@ -97,8 +97,12 @@ export default function CarouselAdmin() {
       <div className="grid grid-cols-1 gap-6">
         {items.map((item) => (
           <div key={item.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
-            <div className="h-48 md:w-64 md:h-auto shrink-0">
-              <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+            <div className="h-48 md:w-64 md:h-auto shrink-0 bg-gray-100 flex items-center justify-center">
+              {item.image ? (
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+              ) : (
+                <ImageIcon className="text-gray-400" size={32} />
+              )}
             </div>
             <div className="p-6 flex-1 flex flex-col justify-center">
               <div className="flex justify-between items-start mb-2">

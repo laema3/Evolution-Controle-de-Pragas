@@ -1,8 +1,27 @@
 import { MessageCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function WhatsAppButton() {
-  const phoneNumber = '5511999999999'; // Replace with actual number
+  const [phoneNumber, setPhoneNumber] = useState('5511999999999'); // Fallback number
   const message = 'Olá! Gostaria de saber mais sobre os serviços da Evolution.';
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const docRef = doc(db, 'companyInfo', 'main');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists() && docSnap.data().whatsapp) {
+          setPhoneNumber(docSnap.data().whatsapp);
+        }
+      } catch (error) {
+        console.error("Error fetching company info: ", error);
+      }
+    };
+
+    fetchInfo();
+  }, []);
 
   const handleClick = () => {
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;

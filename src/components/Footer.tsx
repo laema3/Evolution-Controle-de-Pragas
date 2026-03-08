@@ -30,16 +30,33 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* About */}
           <div>
-            <h3 className="text-2xl font-bold text-white mb-4">
-              {info?.logoText || 'EVOLUTION'}
-            </h3>
+            {info?.logoUrl ? (
+              <img src={info.logoUrl} alt={info?.logoText || 'Logo'} className="h-12 object-contain mb-4" />
+            ) : (
+              <h3 className="text-2xl font-bold text-white mb-4">
+                {info?.logoText || 'EVOLUTION'}
+              </h3>
+            )}
             <p className="text-gray-400 mb-4">
               {info?.description || 'Especialistas em controle de pragas urbanas, oferecendo segurança e qualidade para sua casa ou empresa.'}
             </p>
             <div className="flex gap-4">
-              <a href="#" className="hover:text-green-500 transition-colors"><Facebook /></a>
-              <a href="#" className="hover:text-green-500 transition-colors"><Instagram /></a>
-              <a href="#" className="hover:text-green-500 transition-colors"><MessageCircle /></a>
+              {info?.facebook && (
+                <a href={info.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors"><Facebook /></a>
+              )}
+              {info?.instagram && (
+                <a href={info.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors"><Instagram /></a>
+              )}
+              {info?.whatsapp && (
+                <a href={`https://wa.me/${info.whatsapp}`} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors"><MessageCircle /></a>
+              )}
+              {!info?.facebook && !info?.instagram && !info?.whatsapp && (
+                <>
+                  <a href="#" className="hover:text-green-500 transition-colors"><Facebook /></a>
+                  <a href="#" className="hover:text-green-500 transition-colors"><Instagram /></a>
+                  <a href="#" className="hover:text-green-500 transition-colors"><MessageCircle /></a>
+                </>
+              )}
             </div>
           </div>
 
@@ -82,6 +99,14 @@ export default function Footer() {
                 <Mail className="w-5 h-5 text-green-500 shrink-0" />
                 <span>{info?.email || 'contato@evolutionpragas.com.br'}</span>
               </li>
+              {info?.businessHours && (
+                <li className="flex items-start gap-3 pt-2 border-t border-gray-800">
+                  <div className="flex flex-col">
+                    <span className="text-white font-medium mb-1">Horário de Atendimento</span>
+                    <span className="text-sm">{info.businessHours}</span>
+                  </div>
+                </li>
+              )}
             </ul>
           </div>
         </div>

@@ -71,7 +71,12 @@
         "address": { "type": "string", "description": "Company address" },
         "description": { "type": "string", "description": "Company description for footer" },
         "logoText": { "type": "string", "description": "Text for the logo" },
-        "logoSubtext": { "type": "string", "description": "Subtext for the logo" }
+        "logoSubtext": { "type": "string", "description": "Subtext for the logo" },
+        "logoUrl": { "type": "string", "description": "URL of the company logo image" },
+        "instagram": { "type": "string", "description": "Instagram profile URL" },
+        "facebook": { "type": "string", "description": "Facebook profile URL" },
+        "whatsapp": { "type": "string", "description": "WhatsApp number for link" },
+        "businessHours": { "type": "string", "description": "Business hours text" }
       },
       "required": ["phone", "email", "address", "description", "logoText"]
     }
