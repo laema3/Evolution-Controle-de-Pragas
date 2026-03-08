@@ -1,0 +1,105 @@
+{
+  "entities": {
+    "Service": {
+      "title": "Service",
+      "description": "A service offered by the company",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the service" },
+        "description": { "type": "string", "description": "Description of the service" },
+        "image": { "type": "string", "description": "URL of the service image" },
+        "icon": { "type": "string", "description": "Name of the icon (e.g., 'Bug', 'Rat')" }
+      },
+      "required": ["title", "description", "image"]
+    },
+    "City": {
+      "title": "City",
+      "description": "A city served by the company",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the city" }
+      },
+      "required": ["name"]
+    },
+    "CarouselItem": {
+      "title": "Carousel Item",
+      "description": "An item in the hero carousel",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Title of the slide" },
+        "subtitle": { "type": "string", "description": "Subtitle of the slide" },
+        "image": { "type": "string", "description": "URL of the background image" },
+        "order": { "type": "number", "description": "Order of the slide" }
+      },
+      "required": ["title", "subtitle", "image", "order"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "A customer testimonial",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the customer" },
+        "role": { "type": "string", "description": "Role of the customer (e.g., 'Gerente de Condomínio')" },
+        "content": { "type": "string", "description": "The testimonial text" },
+        "rating": { "type": "number", "description": "Rating out of 5" }
+      },
+      "required": ["name", "content", "rating"]
+    },
+    "QuoteRequest": {
+      "title": "Quote Request",
+      "description": "A request for a quote from a customer",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Customer name" },
+        "email": { "type": "string", "description": "Customer email" },
+        "phone": { "type": "string", "description": "Customer phone" },
+        "service": { "type": "string", "description": "Requested service" },
+        "address": { "type": "string", "description": "Customer address" },
+        "message": { "type": "string", "description": "Additional message" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "status": { "type": "string", "enum": ["new", "contacted", "closed"], "description": "Status of the request" }
+      },
+      "required": ["name", "email", "phone", "service", "address", "createdAt", "status"]
+    },
+    "CompanyInfo": {
+      "title": "Company Info",
+      "description": "General company information",
+      "type": "object",
+      "properties": {
+        "phone": { "type": "string", "description": "Company phone number" },
+        "email": { "type": "string", "description": "Company email address" },
+        "address": { "type": "string", "description": "Company address" },
+        "description": { "type": "string", "description": "Company description for footer" },
+        "logoText": { "type": "string", "description": "Text for the logo" },
+        "logoSubtext": { "type": "string", "description": "Subtext for the logo" }
+      },
+      "required": ["phone", "email", "address", "description", "logoText"]
+    }
+  },
+  "firestore": {
+    "services": {
+      "schema": "Service",
+      "description": "Collection of services"
+    },
+    "cities": {
+      "schema": "City",
+      "description": "Collection of served cities"
+    },
+    "carousel": {
+      "schema": "CarouselItem",
+      "description": "Collection of carousel items"
+    },
+    "testimonials": {
+      "schema": "Testimonial",
+      "description": "Collection of testimonials"
+    },
+    "quoteRequests": {
+      "schema": "QuoteRequest",
+      "description": "Collection of quote requests"
+    },
+    "companyInfo": {
+      "schema": "CompanyInfo",
+      "description": "Collection for company info (single document expected)"
+    }
+  }
+}

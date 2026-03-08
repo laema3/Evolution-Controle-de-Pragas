@@ -1,27 +1,44 @@
 import { Star, Quote } from 'lucide-react';
-
-const testimonials = [
-  {
-    name: 'Carlos Silva',
-    role: 'Gerente de Condomínio',
-    content: 'A Evolution Controle de Pragas transformou nosso condomínio. O atendimento foi rápido e o problema com formigas foi resolvido definitivamente. Recomendo!',
-    rating: 5
-  },
-  {
-    name: 'Ana Paula Souza',
-    role: 'Proprietária de Restaurante',
-    content: 'Serviço impecável! A equipe é muito profissional e cuidadosa. Fazemos a manutenção mensal e nunca mais tivemos problemas com pragas.',
-    rating: 5
-  },
-  {
-    name: 'Roberto Mendes',
-    role: 'Residência',
-    content: 'Contratei para descupinização e fiquei muito satisfeito. Explicaram todo o processo e o preço foi justo. O resultado foi excelente.',
-    rating: 5
-  }
-];
+import { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function Testimonials() {
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'testimonials'));
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        if (data.length > 0) {
+          setTestimonials(data);
+        } else {
+          // Fallback
+          setTestimonials([
+            {
+              id: '1',
+              name: 'Carlos Silva',
+              role: 'Gerente de Condomínio',
+              content: 'A Evolution Controle de Pragas transformou nosso condomínio. O atendimento foi rápido e o problema com formigas foi resolvido definitivamente.',
+              rating: 5
+            }
+          ]);
+        }
+      } catch (error) {
+        console.error("Error fetching testimonials: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  if (loading) return null;
+
   return (
     <section className="py-20 bg-green-900 text-white" id="depoimentos">
       <div className="container mx-auto px-4">
@@ -33,8 +50,8 @@ export default function Testimonials() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-green-800 p-8 rounded-2xl relative">
+          {testimonials.map((testimonial) => (
+            <div key={testimonial.id} className="bg-green-800 p-8 rounded-2xl relative">
               <Quote className="absolute top-4 right-4 text-green-600 w-12 h-12 opacity-50" />
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (

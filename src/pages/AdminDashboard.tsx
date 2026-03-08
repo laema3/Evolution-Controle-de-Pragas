@@ -1,26 +1,60 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LogOut, LayoutDashboard, Users, Settings } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, Link, Outlet, useLocation } from 'react-router-dom';
+import { 
+  LogOut, 
+  LayoutDashboard, 
+  Users, 
+  Settings, 
+  Bug, 
+  MapPin, 
+  Image, 
+  MessageSquare, 
+  FileText 
+} from 'lucide-react';
+import { auth } from '../firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        navigate('/login');
+      } else {
+        setUser(currentUser);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
+  const handleLogout = async () => {
+    await signOut(auth);
     navigate('/login');
   };
+
+  if (loading) return <div className="min-h-screen flex items-center justify-center">Carregando...</div>;
+
+  const isActive = (path: string) => location.pathname === path || (path === '/admin' && location.pathname === '/admin');
+
+  const navItems = [
+    { path: '/admin/quotes', icon: <FileText size={20} />, label: 'Orçamentos' },
+    { path: '/admin/services', icon: <Bug size={20} />, label: 'Serviços' },
+    { path: '/admin/cities', icon: <MapPin size={20} />, label: 'Cidades' },
+    { path: '/admin/carousel', icon: <Image size={20} />, label: 'Carrossel' },
+    { path: '/admin/testimonials', icon: <MessageSquare size={20} />, label: 'Depoimentos' },
+    { path: '/admin/settings', icon: <Settings size={20} />, label: 'Configurações' },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-lg hidden md:flex flex-col">
+      <aside className="w-64 bg-white shadow-lg hidden md:flex flex-col fixed h-full">
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
@@ -30,22 +64,28 @@ export default function AdminDashboard() {
           </div>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2">
-          <a href="#" className="flex items-center gap-3 px-4 py-3 bg-green-50 text-green-700 rounded-lg font-medium">
-            <LayoutDashboard size={20} />
-            Dashboard
-          </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
-            <Users size={20} />
-            Clientes
-          </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
-            <Settings size={20} />
-            Configurações
-          </a>
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          {navItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
+                isActive(item.path)
+                  ? 'bg-green-50 text-green-700'
+                  : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              {item.icon}
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="p-4 border-t border-gray-100">
+          <div className="mb-4 px-4">
+            <p className="text-sm text-gray-500">Logado como:</p>
+            <p className="text-sm font-medium text-gray-900 truncate">{user?.email}</p>
+          </div>
           <button 
             onClick={handleLogout}
             className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg font-medium w-full transition-colors"
@@ -57,27 +97,8 @@ export default function AdminDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-gray-600">Olá, Admin</span>
-            <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-              <span className="font-bold text-gray-500">A</span>
-            </div>
-          </div>
-        </header>
-
-        {/* Placeholder Content */}
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 text-center py-20">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <LayoutDashboard className="text-gray-400 w-8 h-8" />
-          </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Bem-vindo ao Painel Administrativo</h2>
-          <p className="text-gray-500 max-w-md mx-auto">
-            Este é o início do seu painel de controle. Aguardando as próximas instruções para implementar as funcionalidades específicas.
-          </p>
-        </div>
+      <main className="flex-1 md:ml-64 p-8">
+        <Outlet />
       </main>
     </div>
   );

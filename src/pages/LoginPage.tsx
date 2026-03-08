@@ -1,22 +1,45 @@
 import { useState } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, ArrowLeft } from 'lucide-react';
+import { Lock, User, ArrowLeft, UserPlus } from 'lucide-react';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple hardcoded auth for demonstration
-    if (username === 'admin' && password === 'admin') {
-      localStorage.setItem('isAuthenticated', 'true');
+    setLoading(true);
+    setError('');
+
+    try {
+      if (isLogin) {
+        await signInWithEmailAndPassword(auth, email, password);
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+      }
       navigate('/admin');
-    } else {
-      setError('Usuário ou senha inválidos');
+    } catch (err: any) {
+      console.error(err);
+      if (isLogin) {
+        setError('Falha no login. Verifique suas credenciais.');
+      } else {
+        if (err.code === 'auth/email-already-in-use') {
+          setError('Este e-mail já está em uso.');
+        } else if (err.code === 'auth/weak-password') {
+          setError('A senha deve ter pelo menos 6 caracteres.');
+        } else {
+          setError('Falha no cadastro. Tente novamente.');
+        }
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,10 +59,12 @@ export default function LoginPage() {
             <span className="text-white font-bold text-3xl">E</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Painel Administrativo</h1>
-          <p className="text-gray-500 mt-2">Entre com suas credenciais para acessar</p>
+          <p className="text-gray-500 mt-2">
+            {isLogin ? 'Entre com suas credenciais para acessar' : 'Crie sua conta de administrador'}
+          </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
             <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center">
               {error}
@@ -47,15 +72,16 @@ export default function LoginPage() {
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Usuário</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
-                placeholder="Digite seu usuário"
+                placeholder="admin@evolution.com"
+                required
               />
             </div>
           </div>
@@ -69,17 +95,32 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
-                placeholder="Digite sua senha"
+                placeholder="Sua senha"
+                required
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl"
+            disabled={loading}
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Entrar
+            {loading ? (isLogin ? 'Entrando...' : 'Cadastrando...') : (isLogin ? 'Entrar' : 'Cadastrar')}
           </button>
+
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => {
+                setIsLogin(!isLogin);
+                setError('');
+              }}
+              className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline"
+            >
+              {isLogin ? 'Não tem conta? Cadastre-se' : 'Já tem conta? Faça login'}
+            </button>
+          </div>
         </form>
       </div>
     </div>

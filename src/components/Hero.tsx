@@ -2,53 +2,57 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-const slides = [
-  {
-    id: 1,
-    image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1920',
-    title: 'Proteção Completa para sua Família',
-    subtitle: 'Soluções eficazes e seguras no controle de pragas urbanas.'
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1504198266287-1659872e6590?auto=format&fit=crop&q=80&w=1920',
-    title: 'Ambientes Livres de Insetos',
-    subtitle: 'Tecnologia avançada para garantir o conforto do seu lar.'
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1599658880436-c61792e70672?auto=format&fit=crop&q=80&w=1920',
-    title: 'Especialistas em Desratização',
-    subtitle: 'Métodos seguros e discretos para eliminar roedores.'
-  },
-  {
-    id: 4,
-    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&q=80&w=1920',
-    title: 'Controle de Cupins',
-    subtitle: 'Preserve seu patrimônio com nosso tratamento especializado.'
-  },
-  {
-    id: 5,
-    image: 'https://images.unsplash.com/photo-1527011046414-4781f1f94f8c?auto=format&fit=crop&q=80&w=1920',
-    title: 'Higienização de Reservatórios',
-    subtitle: 'Água limpa e saúde para todos.'
-  }
-];
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const [slides, setSlides] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const q = query(collection(db, 'carousel'), orderBy('order'));
+        const querySnapshot = await getDocs(q);
+        const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        if (data.length > 0) {
+          setSlides(data);
+        } else {
+          // Fallback if no data
+          setSlides([
+            {
+              id: '1',
+              image: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1920',
+              title: 'Proteção Completa para sua Família',
+              subtitle: 'Soluções eficazes e seguras no controle de pragas urbanas.'
+            }
+          ]);
+        }
+      } catch (error) {
+        console.error("Error fetching carousel: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSlides();
+  }, []);
+
+  useEffect(() => {
+    if (slides.length === 0) return;
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
   const prevSlide = () => setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+
+  if (loading) return <div className="h-[600px] bg-black flex items-center justify-center text-white">Carregando...</div>;
 
   return (
     <div className="relative h-[600px] w-full overflow-hidden bg-black">
@@ -63,7 +67,7 @@ export default function Hero() {
         >
           <div 
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${slides[current].image})` }}
+            style={{ backgroundImage: `url(${slides[current]?.image})` }}
           >
             <div className="absolute inset-0 bg-black/50" />
           </div>
@@ -74,7 +78,7 @@ export default function Hero() {
               transition={{ delay: 0.2 }}
               className="text-4xl md:text-6xl font-bold mb-4 max-w-4xl"
             >
-              {slides[current].title}
+              {slides[current]?.title}
             </motion.h1>
             <motion.p 
               initial={{ y: 20, opacity: 0 }}
@@ -82,7 +86,7 @@ export default function Hero() {
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl max-w-2xl"
             >
-              {slides[current].subtitle}
+              {slides[current]?.subtitle}
             </motion.p>
             <motion.button
               initial={{ y: 20, opacity: 0 }}

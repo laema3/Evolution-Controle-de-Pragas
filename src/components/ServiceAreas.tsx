@@ -1,21 +1,36 @@
 import { MapPin } from 'lucide-react';
-
-const cities = [
-  'São Paulo',
-  'Guarulhos',
-  'Campinas',
-  'São Bernardo do Campo',
-  'Santo André',
-  'Osasco',
-  'Sorocaba',
-  'Ribeirão Preto',
-  'São José dos Campos',
-  'Santos',
-  'Diadema',
-  'Jundiaí'
-];
+import { useState, useEffect } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function ServiceAreas() {
+  const [cities, setCities] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'cities'));
+        const data = querySnapshot.docs.map(doc => doc.data().name);
+        
+        if (data.length > 0) {
+          setCities(data);
+        } else {
+          // Fallback
+          setCities(['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo']);
+        }
+      } catch (error) {
+        console.error("Error fetching cities: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
+  if (loading) return null;
+
   return (
     <section className="py-20 bg-white" id="atendimento">
       <div className="container mx-auto px-4">

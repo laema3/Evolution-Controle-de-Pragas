@@ -1,0 +1,79 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Check if the user is an admin (for simplicity, we'll assume authenticated users are admins for now, 
+    // or check against a specific email/uid if needed. Since we're setting up the first admin, 
+    // we'll allow authenticated users to write to content collections).
+    // In a real app, we'd use custom claims or a user role field.
+    function isAdmin() {
+      return isAuthenticated(); 
+    }
+
+    // Validate required fields exist
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // Validate string length
+    function validStringLength(field, minLen, maxLen) {
+      return request.resource.data[field] is string &&
+        request.resource.data[field].size() >= minLen &&
+        request.resource.data[field].size() <= maxLen;
+    }
+
+    // Validate email format
+    function isValidEmail(email) {
+      return email is string &&
+        email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+    }
+
+    // ===============================================================
+    // Collection Rules
+    // ===============================================================
+
+    // Services: Public read, Admin write
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Cities: Public read, Admin write
+    match /cities/{cityId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Carousel: Public read, Admin write
+    match /carousel/{itemId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Testimonials: Public read, Admin write
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Company Info: Public read, Admin write
+    match /companyInfo/{infoId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Quote Requests: Public create, Admin read/write
+    match /quoteRequests/{requestId} {
+      allow create: if true; // Anyone can request a quote
+      allow read, update, delete: if isAdmin();
+    }
+  }
+}

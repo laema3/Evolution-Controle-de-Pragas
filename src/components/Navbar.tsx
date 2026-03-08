@@ -1,8 +1,27 @@
 import { Menu, X, Phone } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [info, setInfo] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const docRef = doc(db, 'companyInfo', 'main');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setInfo(docSnap.data());
+        }
+      } catch (error) {
+        console.error("Error fetching info: ", error);
+      }
+    };
+
+    fetchInfo();
+  }, []);
 
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -11,11 +30,17 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">E</span>
+              <span className="text-white font-bold text-xl">
+                {info?.logoText ? info.logoText.charAt(0) : 'E'}
+              </span>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-gray-900 leading-none">EVOLUTION</span>
-              <span className="text-xs text-gray-500 font-medium tracking-wider">CONTROLE DE PRAGAS</span>
+              <span className="text-xl font-bold text-gray-900 leading-none">
+                {info?.logoText || 'EVOLUTION'}
+              </span>
+              <span className="text-xs text-gray-500 font-medium tracking-wider">
+                {info?.logoSubtext || 'CONTROLE DE PRAGAS'}
+              </span>
             </div>
           </div>
 

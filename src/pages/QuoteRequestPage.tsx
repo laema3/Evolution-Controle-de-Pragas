@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Send, CheckCircle } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function QuoteRequestPage() {
   const navigate = useNavigate();
@@ -16,22 +18,38 @@ export default function QuoteRequestPage() {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically send the data to a backend
-    console.log('Form submitted:', formData);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds and redirect
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      await addDoc(collection(db, 'quoteRequests'), {
+        ...formData,
+        status: 'new', // Changed from 'pending' to 'new' to match blueprint and admin
+        createdAt: serverTimestamp()
+      });
+      
+      setIsSubmitted(true);
+      
+      // Reset form after 3 seconds and redirect
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    } catch (err) {
+      console.error("Error submitting quote: ", err);
+      setError('Ocorreu um erro ao enviar sua solicitação. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -78,6 +96,12 @@ export default function QuoteRequestPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="p-8 space-y-6">
+            {error && (
+              <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center">
+                {error}
+              </div>
+            )}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
@@ -170,10 +194,17 @@ export default function QuoteRequestPage() {
 
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+              disabled={isSubmitting}
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Send className="w-5 h-5" />
-              Enviar Solicitação
+              {isSubmitting ? (
+                'Enviando...'
+              ) : (
+                <>
+                  <Send className="w-5 h-5" />
+                  Enviar Solicitação
+                </>
+              )}
             </button>
           </form>
         </div>

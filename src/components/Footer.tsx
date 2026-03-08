@@ -1,8 +1,28 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function Footer() {
   const navigate = useNavigate();
+  const [info, setInfo] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchInfo = async () => {
+      try {
+        const docRef = doc(db, 'companyInfo', 'main');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setInfo(docSnap.data());
+        }
+      } catch (error) {
+        console.error("Error fetching company info: ", error);
+      }
+    };
+
+    fetchInfo();
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16 pb-8">
@@ -10,9 +30,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* About */}
           <div>
-            <h3 className="text-2xl font-bold text-white mb-4">EVOLUTION</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">
+              {info?.logoText || 'EVOLUTION'}
+            </h3>
             <p className="text-gray-400 mb-4">
-              Especialistas em controle de pragas urbanas, oferecendo segurança e qualidade para sua casa ou empresa.
+              {info?.description || 'Especialistas em controle de pragas urbanas, oferecendo segurança e qualidade para sua casa ou empresa.'}
             </p>
             <div className="flex gap-4">
               <a href="#" className="hover:text-green-500 transition-colors"><Facebook /></a>
@@ -50,22 +72,22 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-green-500 shrink-0 mt-1" />
-                <span>Rua Exemplo, 123 - Bairro<br />Cidade - UF, 00000-000</span>
+                <span>{info?.address || 'Rua Exemplo, 123 - Bairro, Cidade - UF'}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-green-500 shrink-0" />
-                <span>(11) 99999-9999</span>
+                <span>{info?.phone || '(11) 99999-9999'}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-green-500 shrink-0" />
-                <span>contato@evolutionpragas.com.br</span>
+                <span>{info?.email || 'contato@evolutionpragas.com.br'}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Evolution Controle de Pragas. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} {info?.logoText || 'Evolution'} Controle de Pragas. Todos os direitos reservados.</p>
           <button 
             onClick={() => navigate('/login')}
             className="flex items-center gap-2 hover:text-green-500 transition-colors"
