@@ -230,7 +230,7 @@ export default function ImageUpload({ currentImage, onImageUploaded, folder }: I
           ) : (
             <div 
               onClick={() => fileInputRef.current?.click()}
-              className="w-full h-full rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer hover:border-green-500 hover:bg-green-50 transition-colors text-gray-400 hover:text-green-600"
+              className="w-full h-full rounded-lg border-2 border-dashed border-gray-300 flex flex-col items-center justify-center cursor-pointer hover:border-purple-500 hover:bg-purple-50 transition-colors text-gray-400 hover:text-purple-600"
             >
               {isUploading ? (
                 <Loader2 className="w-8 h-8 animate-spin" />
@@ -288,7 +288,7 @@ export default function ImageUpload({ currentImage, onImageUploaded, folder }: I
                           alert(`Bucket atualizado para: ${val}. Tente o upload novamente.`);
                         }
                       }}
-                      className="px-1 py-0.5 bg-green-600 text-white text-[10px] rounded hover:bg-green-700"
+                      className="px-1 py-0.5 bg-purple-600 text-white text-[10px] rounded hover:bg-purple-700"
                     >
                       OK
                     </button>

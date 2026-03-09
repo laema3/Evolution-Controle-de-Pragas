@@ -31,9 +31,9 @@ export default function Footer() {
           {/* About */}
           <div>
             {info?.logoUrl ? (
-              <img src={info.logoUrl} alt={info?.logoText || 'Logo'} className="h-12 object-contain mb-4" />
+              <img src={info.logoUrl} alt={info?.logoText || 'Logo'} className="h-24 object-contain mb-4" />
             ) : (
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-4xl font-bold text-white mb-4">
                 {info?.logoText || 'EVOLUTION'}
               </h3>
             )}
@@ -42,19 +42,19 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               {info?.facebook && (
-                <a href={info.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors"><Facebook /></a>
+                <a href={info.facebook} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 transition-colors"><Facebook /></a>
               )}
               {info?.instagram && (
-                <a href={info.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors"><Instagram /></a>
+                <a href={info.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 transition-colors"><Instagram /></a>
               )}
               {info?.whatsapp && (
-                <a href={`https://wa.me/${info.whatsapp}`} target="_blank" rel="noopener noreferrer" className="hover:text-green-500 transition-colors"><MessageCircle /></a>
+                <a href={`https://wa.me/${info.whatsapp}`} target="_blank" rel="noopener noreferrer" className="hover:text-purple-500 transition-colors"><MessageCircle /></a>
               )}
               {!info?.facebook && !info?.instagram && !info?.whatsapp && (
                 <>
-                  <a href="#" className="hover:text-green-500 transition-colors"><Facebook /></a>
-                  <a href="#" className="hover:text-green-500 transition-colors"><Instagram /></a>
-                  <a href="#" className="hover:text-green-500 transition-colors"><MessageCircle /></a>
+                  <a href="#" className="hover:text-purple-500 transition-colors"><Facebook /></a>
+                  <a href="#" className="hover:text-purple-500 transition-colors"><Instagram /></a>
+                  <a href="#" className="hover:text-purple-500 transition-colors"><MessageCircle /></a>
                 </>
               )}
             </div>
@@ -64,11 +64,11 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-4">Links Rápidos</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-green-500 transition-colors">Início</a></li>
-              <li><a href="#servicos" className="hover:text-green-500 transition-colors">Serviços</a></li>
-              <li><a href="#depoimentos" className="hover:text-green-500 transition-colors">Depoimentos</a></li>
-              <li><a href="#" className="hover:text-green-500 transition-colors">Sobre Nós</a></li>
-              <li><a href="#" className="hover:text-green-500 transition-colors">Contato</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Início</a></li>
+              <li><a href="#servicos" className="hover:text-purple-500 transition-colors">Serviços</a></li>
+              <li><a href="#depoimentos" className="hover:text-purple-500 transition-colors">Depoimentos</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Sobre Nós</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Contato</a></li>
             </ul>
           </div>
 
@@ -76,10 +76,10 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold text-white mb-4">Serviços</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="hover:text-green-500 transition-colors">Dedetização</a></li>
-              <li><a href="#" className="hover:text-green-500 transition-colors">Desratização</a></li>
-              <li><a href="#" className="hover:text-green-500 transition-colors">Descupinização</a></li>
-              <li><a href="#" className="hover:text-green-500 transition-colors">Limpeza de Caixa d'Água</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Dedetização</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Desratização</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Descupinização</a></li>
+              <li><a href="#" className="hover:text-purple-500 transition-colors">Limpeza de Caixa d'Água</a></li>
             </ul>
           </div>
 
@@ -88,15 +88,15 @@ export default function Footer() {
             <h4 className="text-lg font-bold text-white mb-4">Contato</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-green-500 shrink-0 mt-1" />
+                <MapPin className="w-5 h-5 text-purple-500 shrink-0 mt-1" />
                 <span>{info?.address || 'Rua Exemplo, 123 - Bairro, Cidade - UF'}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-green-500 shrink-0" />
+                <Phone className="w-5 h-5 text-purple-500 shrink-0" />
                 <span>{info?.phone || '(11) 99999-9999'}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-green-500 shrink-0" />
+                <Mail className="w-5 h-5 text-purple-500 shrink-0" />
                 <span>{info?.email || 'contato@evolutionpragas.com.br'}</span>
               </li>
               {info?.businessHours && (
@@ -115,7 +115,7 @@ export default function Footer() {
           <p>&copy; {new Date().getFullYear()} {info?.logoText || 'Evolution'} Controle de Pragas. Todos os direitos reservados.</p>
           <button 
             onClick={() => navigate('/login')}
-            className="flex items-center gap-2 hover:text-green-500 transition-colors"
+            className="flex items-center gap-2 hover:text-purple-500 transition-colors"
           >
             <Lock size={14} />
             Área Administrativa

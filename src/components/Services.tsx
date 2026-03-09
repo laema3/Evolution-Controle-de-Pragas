@@ -5,11 +5,11 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const iconMap: any = {
-  Bug: <Bug className="w-12 h-12 text-green-600" />,
-  Rat: <Rat className="w-12 h-12 text-green-600" />,
-  ShieldAlert: <ShieldAlert className="w-12 h-12 text-green-600" />,
-  Droplets: <Droplets className="w-12 h-12 text-green-600" />,
-  SprayCan: <SprayCan className="w-12 h-12 text-green-600" />,
+  Bug: <Bug className="w-12 h-12 text-purple-600" />,
+  Rat: <Rat className="w-12 h-12 text-purple-600" />,
+  ShieldAlert: <ShieldAlert className="w-12 h-12 text-purple-600" />,
+  Droplets: <Droplets className="w-12 h-12 text-purple-600" />,
+  SprayCan: <SprayCan className="w-12 h-12 text-purple-600" />,
 };
 
 export default function Services() {
@@ -78,13 +78,13 @@ export default function Services() {
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="mb-4">
-                  {iconMap[service.icon] || <HelpCircle className="w-12 h-12 text-green-600" />}
+                  {iconMap[service.icon] || <HelpCircle className="w-12 h-12 text-purple-600" />}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
                 <p className="text-gray-600 mb-6 flex-1">{service.description}</p>
                 <button 
                   onClick={() => navigate('/orcamento')}
-                  className="w-full py-3 border-2 border-green-600 text-green-600 font-semibold rounded-lg hover:bg-green-600 hover:text-white transition-colors"
+                  className="w-full py-3 bg-yellow-400 text-gray-900 font-bold rounded-lg hover:bg-yellow-500 transition-colors shadow-sm"
                 >
                   Pedir Orçamento
                 </button>

@@ -76,7 +76,7 @@ export default function SettingsAdmin() {
                 type="text"
                 value={formData.logoText}
                 onChange={(e) => setFormData({...formData, logoText: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function SettingsAdmin() {
                 type="text"
                 value={formData.logoSubtext}
                 onChange={(e) => setFormData({...formData, logoSubtext: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
               />
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function SettingsAdmin() {
                 type="text"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                 placeholder="(11) 99999-9999"
               />
             </div>
@@ -113,7 +113,7 @@ export default function SettingsAdmin() {
                 type="text"
                 value={formData.whatsapp}
                 onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                 placeholder="5511999999999"
               />
               <p className="text-xs text-gray-500 mt-1">Apenas números, com código do país (ex: 5511999999999)</p>
@@ -126,7 +126,7 @@ export default function SettingsAdmin() {
               type="email"
               value={formData.email}
               onChange={(e) => setFormData({...formData, email: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
               placeholder="contato@empresa.com"
             />
           </div>
@@ -137,7 +137,7 @@ export default function SettingsAdmin() {
               type="text"
               value={formData.address}
               onChange={(e) => setFormData({...formData, address: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
               placeholder="Rua, Número - Bairro, Cidade - UF"
             />
           </div>
@@ -148,7 +148,7 @@ export default function SettingsAdmin() {
               type="text"
               value={formData.businessHours}
               onChange={(e) => setFormData({...formData, businessHours: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
               placeholder="Seg a Sex: 08h às 18h | Sáb: 08h às 12h"
             />
           </div>
@@ -164,7 +164,7 @@ export default function SettingsAdmin() {
                 type="url"
                 value={formData.instagram}
                 onChange={(e) => setFormData({...formData, instagram: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                 placeholder="https://instagram.com/suaempresa"
               />
             </div>
@@ -175,7 +175,7 @@ export default function SettingsAdmin() {
                 type="url"
                 value={formData.facebook}
                 onChange={(e) => setFormData({...formData, facebook: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                 placeholder="https://facebook.com/suaempresa"
               />
             </div>
@@ -186,7 +186,7 @@ export default function SettingsAdmin() {
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
               rows={3}
               placeholder="Breve descrição sobre a empresa..."
             />
@@ -195,7 +195,7 @@ export default function SettingsAdmin() {
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 flex items-center justify-center gap-2"
+          className="w-full bg-yellow-400 text-gray-900 py-3 rounded-lg font-bold hover:bg-yellow-500 flex items-center justify-center gap-2 shadow-lg"
         >
           <Save size={20} />
           Salvar Configurações

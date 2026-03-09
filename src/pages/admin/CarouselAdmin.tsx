@@ -87,7 +87,7 @@ export default function CarouselAdmin() {
         <h1 className="text-2xl font-bold text-gray-900">Gerenciar Carrossel</h1>
         <button 
           onClick={openNew}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700"
+          className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-yellow-500 font-bold shadow-sm"
         >
           <Plus size={20} />
           Novo Item
@@ -145,7 +145,7 @@ export default function CarouselAdmin() {
                   type="text"
                   value={formData.title}
                   onChange={(e) => setFormData({...formData, title: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                   required
                 />
               </div>
@@ -155,7 +155,7 @@ export default function CarouselAdmin() {
                   type="text"
                   value={formData.subtitle}
                   onChange={(e) => setFormData({...formData, subtitle: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                   required
                 />
               </div>
@@ -172,13 +172,13 @@ export default function CarouselAdmin() {
                   type="number"
                   value={formData.order}
                   onChange={(e) => setFormData({...formData, order: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 flex items-center justify-center gap-2"
+                className="w-full bg-yellow-400 text-gray-900 py-3 rounded-lg font-bold hover:bg-yellow-500 flex items-center justify-center gap-2 shadow-lg"
               >
                 <Save size={20} />
                 Salvar

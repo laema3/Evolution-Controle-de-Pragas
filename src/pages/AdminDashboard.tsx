@@ -56,11 +56,11 @@ export default function AdminDashboard() {
       {/* Sidebar */}
       <aside className="w-64 bg-white shadow-lg hidden md:flex flex-col fixed h-full">
         <div className="p-6 border-b border-gray-100">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">E</span>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-3xl">E</span>
             </div>
-            <span className="font-bold text-gray-900">Admin Panel</span>
+            <span className="font-bold text-gray-900 text-xl">Admin Panel</span>
           </div>
         </div>
         
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
               to={item.path}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-colors ${
                 isActive(item.path)
-                  ? 'bg-green-50 text-green-700'
+                  ? 'bg-purple-50 text-purple-700'
                   : 'text-gray-600 hover:bg-gray-50'
               }`}
             >

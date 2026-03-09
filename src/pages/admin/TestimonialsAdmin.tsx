@@ -84,7 +84,7 @@ export default function TestimonialsAdmin() {
         <h1 className="text-2xl font-bold text-gray-900">Gerenciar Depoimentos</h1>
         <button 
           onClick={openNew}
-          className="bg-green-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-700"
+          className="bg-yellow-400 text-gray-900 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-yellow-500 font-bold shadow-sm"
         >
           <Plus size={20} />
           Novo Depoimento
@@ -99,7 +99,7 @@ export default function TestimonialsAdmin() {
                 <h3 className="font-bold text-lg">{testimonial.name}</h3>
                 <p className="text-gray-500 text-sm">{testimonial.role}</p>
               </div>
-              <div className="flex text-orange-500">
+              <div className="flex text-yellow-400">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
                 ))}
@@ -140,7 +140,7 @@ export default function TestimonialsAdmin() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                   required
                 />
               </div>
@@ -150,7 +150,7 @@ export default function TestimonialsAdmin() {
                   type="text"
                   value={formData.role}
                   onChange={(e) => setFormData({...formData, role: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                 />
               </div>
               <div>
@@ -158,7 +158,7 @@ export default function TestimonialsAdmin() {
                 <textarea
                   value={formData.content}
                   onChange={(e) => setFormData({...formData, content: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                   rows={4}
                   required
                 />
@@ -171,13 +171,13 @@ export default function TestimonialsAdmin() {
                   max="5"
                   value={formData.rating}
                   onChange={(e) => setFormData({...formData, rating: parseInt(e.target.value)})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
                   required
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 flex items-center justify-center gap-2"
+                className="w-full bg-yellow-400 text-gray-900 py-3 rounded-lg font-bold hover:bg-yellow-500 flex items-center justify-center gap-2 shadow-lg"
               >
                 <Save size={20} />
                 Salvar

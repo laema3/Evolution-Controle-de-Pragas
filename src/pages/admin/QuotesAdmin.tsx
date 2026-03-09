@@ -58,7 +58,7 @@ export default function QuotesAdmin() {
       case 'contacted':
         return <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1"><CheckCircle size={12} /> Contatado</span>;
       case 'closed':
-        return <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1"><CheckCircle size={12} /> Fechado</span>;
+        return <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs font-bold flex items-center gap-1"><CheckCircle size={12} /> Fechado</span>;
       default:
         return <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs font-bold">Desconhecido</span>;
     }
@@ -177,7 +177,7 @@ export default function QuotesAdmin() {
                 </button>
                 <button 
                   onClick={() => handleStatusChange(selectedQuote.id, 'closed')}
-                  className={`px-3 py-1 rounded-full text-sm border ${selectedQuote.status === 'closed' ? 'bg-green-100 border-green-200 text-green-800' : 'border-gray-200 hover:bg-gray-50'}`}
+                  className={`px-3 py-1 rounded-full text-sm border ${selectedQuote.status === 'closed' ? 'bg-purple-100 border-purple-200 text-purple-800' : 'border-gray-200 hover:bg-gray-50'}`}
                 >
                   Fechado
                 </button>

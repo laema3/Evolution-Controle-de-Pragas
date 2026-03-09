@@ -26,23 +26,23 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-32">
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             {info?.logoUrl ? (
-              <img src={info.logoUrl} alt={info?.logoText || 'Logo'} className="h-12 object-contain" />
+              <img src={info.logoUrl} alt={info?.logoText || 'Logo'} className="h-24 object-contain" />
             ) : (
               <>
-                <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">
+                <div className="w-20 h-20 bg-purple-600 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-4xl">
                     {info?.logoText ? info.logoText.charAt(0) : 'E'}
                   </span>
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xl font-bold text-gray-900 leading-none">
+                  <span className="text-3xl font-bold text-gray-900 leading-none">
                     {info?.logoText || 'EVOLUTION'}
                   </span>
-                  <span className="text-xs text-gray-500 font-medium tracking-wider">
+                  <span className="text-sm text-gray-500 font-medium tracking-wider">
                     {info?.logoSubtext || 'CONTROLE DE PRAGAS'}
                   </span>
                 </div>
@@ -51,18 +51,30 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#" className="text-gray-600 hover:text-green-600 font-medium transition-colors">Início</a>
-            <a href="#servicos" className="text-gray-600 hover:text-green-600 font-medium transition-colors">Serviços</a>
-            <a href="#atendimento" className="text-gray-600 hover:text-green-600 font-medium transition-colors">Atendimento</a>
-            <a href="#depoimentos" className="text-gray-600 hover:text-green-600 font-medium transition-colors">Depoimentos</a>
-            <a href="#" className="text-gray-600 hover:text-green-600 font-medium transition-colors">Sobre</a>
+          <div className="hidden md:flex items-center gap-8 h-full">
+            {[
+              { label: 'Início', href: '#' },
+              { label: 'Serviços', href: '#servicos' },
+              { label: 'Atendimento', href: '#atendimento' },
+              { label: 'Depoimentos', href: '#depoimentos' },
+              { label: 'Sobre', href: '#' },
+            ].map((item) => (
+              <a 
+                key={item.label}
+                href={item.href} 
+                className="relative group h-full flex items-center text-gray-600 hover:text-purple-600 font-medium transition-colors"
+              >
+                {/* Yellow Square Indicator */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                {item.label}
+              </a>
+            ))}
             <button 
               onClick={() => {
                 const phone = info?.whatsapp || '5511999999999';
                 window.open(`https://wa.me/${phone}?text=Olá! Gostaria de saber mais sobre os serviços.`, '_blank');
               }}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-medium transition-colors flex items-center gap-2"
+              className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2 rounded-full font-bold transition-colors flex items-center gap-2 shadow-sm"
             >
               <Phone size={18} />
               Fale Conosco
@@ -82,17 +94,29 @@ export default function Navbar() {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col gap-4">
-              <a href="#" className="text-gray-600 hover:text-green-600 font-medium px-2" onClick={() => setIsOpen(false)}>Início</a>
-              <a href="#servicos" className="text-gray-600 hover:text-green-600 font-medium px-2" onClick={() => setIsOpen(false)}>Serviços</a>
-              <a href="#atendimento" className="text-gray-600 hover:text-green-600 font-medium px-2" onClick={() => setIsOpen(false)}>Atendimento</a>
-              <a href="#depoimentos" className="text-gray-600 hover:text-green-600 font-medium px-2" onClick={() => setIsOpen(false)}>Depoimentos</a>
-              <a href="#" className="text-gray-600 hover:text-green-600 font-medium px-2" onClick={() => setIsOpen(false)}>Sobre</a>
+              {[
+                { label: 'Início', href: '#' },
+                { label: 'Serviços', href: '#servicos' },
+                { label: 'Atendimento', href: '#atendimento' },
+                { label: 'Depoimentos', href: '#depoimentos' },
+                { label: 'Sobre', href: '#' },
+              ].map((item) => (
+                <a 
+                  key={item.label}
+                  href={item.href} 
+                  className="relative group text-gray-600 hover:text-purple-600 font-medium px-2 py-2 flex items-center gap-3"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div className="w-3 h-3 bg-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {item.label}
+                </a>
+              ))}
               <button 
                 onClick={() => {
                   const phone = info?.whatsapp || '5511999999999';
                   window.open(`https://wa.me/${phone}?text=Olá! Gostaria de saber mais sobre os serviços.`, '_blank');
                 }}
-                className="bg-green-600 text-white px-6 py-2 rounded-full font-medium w-full flex items-center justify-center gap-2"
+                className="bg-yellow-400 text-gray-900 px-6 py-2 rounded-full font-bold w-full flex items-center justify-center gap-2 shadow-sm"
               >
                 <Phone size={18} />
                 Fale Conosco

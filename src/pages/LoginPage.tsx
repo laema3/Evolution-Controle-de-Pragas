@@ -48,15 +48,15 @@ export default function LoginPage() {
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md relative">
         <button 
           onClick={() => navigate('/')}
-          className="absolute top-4 left-4 text-gray-400 hover:text-green-600 transition-colors flex items-center gap-1 text-sm font-medium"
+          className="absolute top-4 left-4 text-gray-400 hover:text-purple-600 transition-colors flex items-center gap-1 text-sm font-medium"
         >
           <ArrowLeft size={16} />
           Voltar ao Site
         </button>
 
         <div className="text-center mb-8 mt-4">
-          <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-3xl">E</span>
+          <div className="w-32 h-32 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span className="text-white font-bold text-6xl">E</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900">Painel Administrativo</h1>
           <p className="text-gray-500 mt-2">
@@ -79,7 +79,7 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
                 placeholder="admin@evolution.com"
                 required
               />
@@ -94,7 +94,7 @@ export default function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
                 placeholder="Sua senha"
                 required
               />
@@ -104,7 +104,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (isLogin ? 'Entrando...' : 'Cadastrando...') : (isLogin ? 'Entrar' : 'Cadastrar')}
           </button>
@@ -116,7 +116,7 @@ export default function LoginPage() {
                 setIsLogin(!isLogin);
                 setError('');
               }}
-              className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline"
+              className="text-sm text-purple-600 hover:text-purple-700 font-medium hover:underline"
             >
               {isLogin ? 'Não tem conta? Cadastre-se' : 'Já tem conta? Faça login'}
             </button>

@@ -50,17 +50,17 @@ export default function ServiceAreas() {
           {cities.map((city, index) => (
             <div 
               key={index} 
-              className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-green-50 hover:text-green-700 transition-colors group cursor-default"
+              className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:bg-purple-50 hover:text-purple-700 transition-colors group cursor-default"
             >
-              <MapPin className="w-5 h-5 text-green-600 group-hover:scale-110 transition-transform" />
-              <span className="font-medium text-gray-700 group-hover:text-green-700">{city}</span>
+              <MapPin className="w-5 h-5 text-purple-600 group-hover:scale-110 transition-transform" />
+              <span className="font-medium text-gray-700 group-hover:text-purple-700">{city}</span>
             </div>
           ))}
         </div>
         
         <div className="mt-12 text-center">
           <p className="text-gray-500">
-            Não encontrou sua cidade? <a href="/orcamento" className="text-green-600 font-semibold hover:underline">Entre em contato</a> para verificar disponibilidade.
+            Não encontrou sua cidade? <a href="/orcamento" className="text-purple-600 font-semibold hover:underline">Entre em contato</a> para verificar disponibilidade.
           </p>
         </div>
       </div>

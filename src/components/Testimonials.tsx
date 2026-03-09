@@ -40,28 +40,28 @@ export default function Testimonials() {
   if (loading) return null;
 
   return (
-    <section className="py-20 bg-green-900 text-white" id="depoimentos">
+    <section className="py-20 bg-purple-600 text-white" id="depoimentos">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">O Que Dizem Nossos Clientes</h2>
-          <p className="text-green-100 max-w-2xl mx-auto">
+          <p className="text-purple-100 max-w-2xl mx-auto">
             A satisfação dos nossos clientes é a nossa maior garantia de qualidade.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="bg-green-800 p-8 rounded-2xl relative">
-              <Quote className="absolute top-4 right-4 text-green-600 w-12 h-12 opacity-50" />
+            <div key={testimonial.id} className="bg-purple-700 p-8 rounded-2xl relative">
+              <Quote className="absolute top-4 right-4 text-purple-400 w-12 h-12 opacity-30" />
               <div className="flex gap-1 mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-orange-500 text-orange-500" />
+                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="text-green-50 mb-6 italic">"{testimonial.content}"</p>
+              <p className="text-purple-50 mb-6 italic">"{testimonial.content}"</p>
               <div>
                 <p className="font-bold text-white">{testimonial.name}</p>
-                <p className="text-green-300 text-sm">{testimonial.role}</p>
+                <p className="text-purple-300 text-sm">{testimonial.role}</p>
               </div>
             </div>
           ))}

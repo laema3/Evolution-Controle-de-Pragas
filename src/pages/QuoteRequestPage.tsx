@@ -56,8 +56,8 @@ export default function QuoteRequestPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
         <div className="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-10 h-10 text-green-600" />
+          <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-purple-600" />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Solicitação Enviada!</h2>
           <p className="text-gray-600 mb-6">
@@ -65,7 +65,7 @@ export default function QuoteRequestPage() {
           </p>
           <button 
             onClick={() => navigate('/')}
-            className="text-green-600 font-medium hover:underline"
+            className="text-purple-600 font-medium hover:underline"
           >
             Voltar para o início
           </button>
@@ -81,16 +81,16 @@ export default function QuoteRequestPage() {
       <div className="flex-1 container mx-auto px-4 py-12">
         <button 
           onClick={() => navigate(-1)}
-          className="flex items-center text-gray-600 hover:text-green-600 mb-8 transition-colors"
+          className="flex items-center text-gray-600 hover:text-purple-600 mb-8 transition-colors"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
           Voltar
         </button>
 
         <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div className="bg-green-600 p-8 text-white text-center">
+          <div className="bg-purple-600 p-8 text-white text-center">
             <h1 className="text-3xl font-bold mb-2">Solicitar Orçamento</h1>
-            <p className="text-green-100">
+            <p className="text-purple-100">
               Preencha o formulário abaixo e receba uma proposta personalizada para sua necessidade.
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function QuoteRequestPage() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
                   placeholder="Seu nome"
                 />
               </div>
@@ -125,7 +125,7 @@ export default function QuoteRequestPage() {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
                   placeholder="(00) 00000-0000"
                 />
               </div>
@@ -140,7 +140,7 @@ export default function QuoteRequestPage() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
                 placeholder="seu@email.com"
               />
             </div>
@@ -153,7 +153,7 @@ export default function QuoteRequestPage() {
                 required
                 value={formData.service}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all bg-white"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all bg-white"
               >
                 <option value="">Selecione um serviço</option>
                 <option value="Dedetização">Dedetização (Insetos Rasteiros)</option>
@@ -174,7 +174,7 @@ export default function QuoteRequestPage() {
                 required
                 value={formData.address}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
                 placeholder="Rua, Número, Bairro, Cidade"
               />
             </div>
@@ -187,7 +187,7 @@ export default function QuoteRequestPage() {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all resize-none"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all resize-none"
                 placeholder="Descreva o problema ou faça perguntas específicas..."
               ></textarea>
             </div>
@@ -195,7 +195,7 @@ export default function QuoteRequestPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-4 rounded-lg transition-colors shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
                 'Enviando...'

@@ -45,14 +45,14 @@ export default function ChatWidget() {
             className="fixed bottom-24 right-4 w-80 md:w-96 bg-white rounded-2xl shadow-2xl z-50 overflow-hidden border border-gray-100"
           >
             {/* Header */}
-            <div className="bg-green-600 p-4 flex justify-between items-center">
+            <div className="bg-purple-600 p-4 flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <div className="bg-white/20 p-2 rounded-full">
                   <Bot className="text-white w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="text-white font-bold">Assistente Virtual</h3>
-                  <p className="text-green-100 text-xs">Online agora</p>
+                  <p className="text-purple-100 text-xs">Online agora</p>
                 </div>
               </div>
               <button 
@@ -70,7 +70,7 @@ export default function ChatWidget() {
                   key={idx} 
                   className={`max-w-[80%] p-3 rounded-2xl text-sm ${
                     msg.isUser 
-                      ? 'bg-green-600 text-white self-end rounded-tr-none' 
+                      ? 'bg-purple-600 text-white self-end rounded-tr-none' 
                       : 'bg-white text-gray-800 self-start rounded-tl-none shadow-sm border border-gray-100'
                   }`}
                 >
@@ -89,11 +89,11 @@ export default function ChatWidget() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                   placeholder="Digite sua mensagem..."
-                  className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
                 <button 
                   onClick={handleSend}
-                  className="bg-green-600 text-white p-2 rounded-full hover:bg-green-700 transition-colors"
+                  className="bg-yellow-400 text-gray-900 p-2 rounded-full hover:bg-yellow-500 transition-colors shadow-sm"
                 >
                   <Send size={18} />
                 </button>
@@ -105,7 +105,7 @@ export default function ChatWidget() {
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 z-50 flex items-center justify-center group"
+        className="fixed bottom-4 right-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 p-4 rounded-full shadow-lg transition-all hover:scale-110 z-50 flex items-center justify-center group"
       >
         <MessageCircle className="w-6 h-6" />
         <span className="absolute right-full mr-3 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">

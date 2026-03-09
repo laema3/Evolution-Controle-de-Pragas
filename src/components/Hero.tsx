@@ -93,7 +93,7 @@ export default function Hero() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
               onClick={() => navigate('/orcamento')}
-              className="mt-8 px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full transition-colors"
+              className="mt-8 px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold rounded-full transition-colors shadow-lg"
             >
               Solicitar Orçamento
             </motion.button>
@@ -120,7 +120,7 @@ export default function Hero() {
             key={index}
             onClick={() => setCurrent(index)}
             className={`w-3 h-3 rounded-full transition-all ${
-              index === current ? 'bg-orange-500 w-8' : 'bg-white/50 hover:bg-white'
+              index === current ? 'bg-yellow-400 w-8' : 'bg-white/50 hover:bg-white'
             }`}
           />
         ))}

@@ -31,7 +31,7 @@ export default function WhatsAppButton() {
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-4 left-4 bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-full shadow-lg transition-all hover:scale-110 z-50 flex items-center justify-center group"
+      className="fixed bottom-4 left-4 bg-yellow-400 hover:bg-yellow-500 text-gray-900 p-4 rounded-full shadow-lg transition-all hover:scale-110 z-50 flex items-center justify-center group"
     >
       <MessageCircle className="w-6 h-6" /> {/* Using MessageCircle as generic chat icon, could be custom SVG for WA */}
       <span className="absolute left-full ml-3 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
