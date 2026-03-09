@@ -18,7 +18,7 @@ export default function CitiesAdmin() {
     try {
       const querySnapshot = await getDocs(collection(db, 'cities'));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setCities(data);
+      setCities(data.sort((a: any, b: any) => a.name.localeCompare(b.name, 'pt-BR')));
     } catch (error) {
       console.error("Error fetching cities: ", error);
     } finally {

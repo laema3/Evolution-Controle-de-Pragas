@@ -1,6 +1,6 @@
 import { MapPin } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 
 export default function ServiceAreas() {
@@ -10,17 +10,22 @@ export default function ServiceAreas() {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'cities'));
+        const q = query(collection(db, 'cities'), orderBy('name'));
+        const querySnapshot = await getDocs(q);
         const data = querySnapshot.docs.map(doc => doc.data().name);
         
         if (data.length > 0) {
-          setCities(data);
+          setCities(data.sort((a, b) => a.localeCompare(b, 'pt-BR')));
         } else {
           // Fallback
-          setCities(['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo']);
+          const fallbackCities = ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo'];
+          setCities(fallbackCities.sort((a, b) => a.localeCompare(b, 'pt-BR')));
         }
       } catch (error) {
         console.error("Error fetching cities: ", error);
+        // Fallback on error
+        const fallbackCities = ['São Paulo', 'Guarulhos', 'Campinas', 'São Bernardo do Campo'];
+        setCities(fallbackCities.sort((a, b) => a.localeCompare(b, 'pt-BR')));
       } finally {
         setLoading(false);
       }
