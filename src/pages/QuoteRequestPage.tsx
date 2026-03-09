@@ -34,16 +34,29 @@ export default function QuoteRequestPage() {
     try {
       await addDoc(collection(db, 'quoteRequests'), {
         ...formData,
-        status: 'new', // Changed from 'pending' to 'new' to match blueprint and admin
+        status: 'new',
         createdAt: serverTimestamp()
       });
       
       setIsSubmitted(true);
       
-      // Reset form after 3 seconds and redirect
+      // Send WhatsApp notification
+      const ownerPhone = '34991963030';
+      const whatsappMessage = `*Novo Orçamento Recebido!*
+      
+*Cliente:* ${formData.name}
+*Serviço:* ${formData.service}
+*Telefone:* ${formData.phone}
+*Endereço:* ${formData.address}
+*Mensagem:* ${formData.message || 'Sem detalhes adicionais'}`;
+
+      const whatsappUrl = `https://wa.me/${ownerPhone}?text=${encodeURIComponent(whatsappMessage)}`;
+      
+      // Open WhatsApp in a new tab after a short delay to let the user see the success message
       setTimeout(() => {
+        window.open(whatsappUrl, '_blank');
         navigate('/');
-      }, 3000);
+      }, 2000);
     } catch (err) {
       console.error("Error submitting quote: ", err);
       setError('Ocorreu um erro ao enviar sua solicitação. Tente novamente.');
@@ -61,7 +74,7 @@ export default function QuoteRequestPage() {
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Solicitação Enviada!</h2>
           <p className="text-gray-600 mb-6">
-            Recebemos seu pedido de orçamento. Nossa equipe entrará em contato em breve.
+            Recebemos seu pedido de orçamento. Você será redirecionado para o WhatsApp para confirmar os detalhes com nossa equipe.
           </p>
           <button 
             onClick={() => navigate('/')}
