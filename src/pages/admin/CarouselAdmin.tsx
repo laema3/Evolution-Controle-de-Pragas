@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { Trash2, Edit, Plus, X, Save, Image as ImageIcon } from 'lucide-react';
+import { Trash2, Edit, Plus, X, Save, Sparkles, Image as ImageIcon } from 'lucide-react';
 import ImageUpload from '../../components/ImageUpload';
+import { GoogleGenAI } from "@google/genai";
 
 export default function CarouselAdmin() {
   const [items, setItems] = useState<any[]>([]);
@@ -15,6 +16,7 @@ export default function CarouselAdmin() {
     image: '',
     order: 0
   });
+  const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
     fetchItems();
@@ -59,6 +61,42 @@ export default function CarouselAdmin() {
       } catch (error) {
         console.error("Error deleting carousel item: ", error);
       }
+    }
+  };
+
+  const generateSubtitle = async () => {
+    if (!formData.title) {
+      alert('Por favor, preencha o título do slide primeiro.');
+      return;
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      alert('Erro de configuração: Chave da API Gemini não encontrada. Entre em contato com o suporte.');
+      console.error("GEMINI_API_KEY is missing");
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const ai = new GoogleGenAI({ apiKey });
+      const model = 'gemini-3-flash-preview';
+      
+      const prompt = `Escreva uma descrição curta, profissional e persuasiva (máximo de 2 linhas) para um slide de banner de uma empresa de controle de pragas. O título do slide é "${formData.title}". A descrição deve ser em português do Brasil e focada em marketing para atrair clientes.`;
+      
+      const response = await ai.models.generateContent({
+        model: model,
+        contents: prompt,
+      });
+
+      if (response.text) {
+        setFormData(prev => ({ ...prev, subtitle: response.text || '' }));
+      }
+    } catch (error) {
+      console.error("Error generating subtitle: ", error);
+      alert('Erro ao gerar descrição com IA. Tente novamente mais tarde.');
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -150,12 +188,24 @@ export default function CarouselAdmin() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Subtítulo</label>
-                <input
-                  type="text"
+                <div className="flex justify-between items-center mb-1">
+                  <label className="block text-sm font-medium text-gray-700">Descrição</label>
+                  <button
+                    type="button"
+                    onClick={generateSubtitle}
+                    disabled={isGenerating || !formData.title}
+                    className="text-xs flex items-center gap-1 text-purple-600 hover:text-purple-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Sparkles size={14} />
+                    {isGenerating ? 'Gerando...' : 'Gerar com IA'}
+                  </button>
+                </div>
+                <textarea
                   value={formData.subtitle}
                   onChange={(e) => setFormData({...formData, subtitle: e.target.value})}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                  rows={3}
+                  placeholder="Descrição do slide..."
                   required
                 />
               </div>

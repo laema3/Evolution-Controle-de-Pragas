@@ -71,7 +71,7 @@ export default function Navbar() {
             ))}
             <button 
               onClick={() => {
-                const phone = info?.whatsapp || '5511999999999';
+                const phone = info?.whatsapp || '+5534991963030';
                 window.open(`https://wa.me/${phone}?text=Olá! Gostaria de saber mais sobre os serviços.`, '_blank');
               }}
               className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2 rounded-full font-bold transition-colors flex items-center gap-2 shadow-sm"
@@ -113,7 +113,7 @@ export default function Navbar() {
               ))}
               <button 
                 onClick={() => {
-                  const phone = info?.whatsapp || '5511999999999';
+                  const phone = info?.whatsapp || '+5534991963030';
                   window.open(`https://wa.me/${phone}?text=Olá! Gostaria de saber mais sobre os serviços.`, '_blank');
                 }}
                 className="bg-yellow-400 text-gray-900 px-6 py-2 rounded-full font-bold w-full flex items-center justify-center gap-2 shadow-sm"

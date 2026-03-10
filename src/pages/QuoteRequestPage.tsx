@@ -41,7 +41,7 @@ export default function QuoteRequestPage() {
       setIsSubmitted(true);
       
       // Send WhatsApp notification
-      const ownerPhone = '34991963030';
+      const ownerPhone = '+5534991963030';
       const whatsappMessage = `*Novo Orçamento Recebido!*
       
 *Cliente:* ${formData.name}

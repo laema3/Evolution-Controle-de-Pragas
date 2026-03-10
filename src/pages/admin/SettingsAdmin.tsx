@@ -114,9 +114,9 @@ export default function SettingsAdmin() {
                 value={formData.whatsapp}
                 onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
-                placeholder="5511999999999"
+                placeholder="+5534991963030"
               />
-              <p className="text-xs text-gray-500 mt-1">Apenas números, com código do país (ex: 5511999999999)</p>
+              <p className="text-xs text-gray-500 mt-1">Apenas números, com código do país e sinal de + (ex: +5534991963030)</p>
             </div>
           </div>
 

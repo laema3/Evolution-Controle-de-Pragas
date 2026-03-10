@@ -26,6 +26,7 @@ export default function ServicesAdmin() {
     try {
       const querySnapshot = await getDocs(collection(db, 'services'));
       const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      data.sort((a: any, b: any) => a.title.localeCompare(b.title));
       setServices(data);
     } catch (error) {
       console.error("Error fetching services: ", error);
@@ -130,7 +131,7 @@ export default function ServicesAdmin() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service) => (
           <div key={service.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="h-40 overflow-hidden bg-gray-100 flex items-center justify-center">

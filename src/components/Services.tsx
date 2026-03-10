@@ -22,6 +22,7 @@ export default function Services() {
       try {
         const querySnapshot = await getDocs(collection(db, 'services'));
         const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        data.sort((a: any, b: any) => a.title.localeCompare(b.title));
         
         if (data.length > 0) {
           setServices(data);
@@ -60,10 +61,10 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
             <div key={service.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col">
-              <div className="h-48 overflow-hidden bg-gray-100 flex items-center justify-center">
+              <div className="h-40 md:h-48 overflow-hidden bg-gray-100 flex items-center justify-center">
                 {service.image ? (
                   <img 
                     src={service.image} 
@@ -78,13 +79,13 @@ export default function Services() {
               </div>
               <div className="p-6 flex-1 flex flex-col">
                 <div className="mb-4">
-                  {iconMap[service.icon] || <HelpCircle className="w-12 h-12 text-purple-600" />}
+                  {iconMap[service.icon] || <HelpCircle className="w-10 h-10 text-purple-600" />}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
-                <p className="text-gray-600 mb-6 flex-1">{service.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2 leading-tight">{service.title}</h3>
+                <p className="text-base text-gray-600 mb-6 flex-1 line-clamp-3">{service.description}</p>
                 <button 
                   onClick={() => navigate('/orcamento')}
-                  className="w-full py-3 bg-yellow-400 text-gray-900 font-bold rounded-lg hover:bg-yellow-500 transition-colors shadow-sm"
+                  className="w-full py-3 bg-yellow-400 text-gray-900 text-base font-bold rounded-lg hover:bg-yellow-500 transition-colors shadow-sm"
                 >
                   Pedir Orçamento
                 </button>
